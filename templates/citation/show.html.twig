@@ -13,7 +13,7 @@
         <tr><th>Catégorie</th><td>{{ citation.categorie|capitalize }}</td></tr>
         <tr><th>Langue</th><td>{{ citation.langue|upper }}</td></tr>
         <tr><th>Note</th><td>{{ citation.note ? citation.note ~ '/5' : '—' }}</td></tr>
-        <tr><th>Favori</th><td>{{ citation.favori ? '⭐ Oui' : 'Non' }}</td></tr>
+        <tr><th>Favori</th><td>{{ citation.favori ? 'Oui' : 'Non' }}</td></tr>
         <tr><th>Date d'ajout</th><td>{{ citation.dateAjout|date('d/m/Y à H:i') }}</td></tr>
     </table>
 

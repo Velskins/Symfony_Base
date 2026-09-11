@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle citation{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Ajouter une citation</h1>
+    {{ include('citation/_form.html.twig') }}
+    <a class="d-block mt-3" href="{{ path('app_citation_index') }}">← Retour à la liste</a>
+{% endblock %}
