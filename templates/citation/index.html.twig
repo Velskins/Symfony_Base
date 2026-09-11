@@ -10,7 +10,7 @@
             Aucune citation pour le moment. Ajoutez-en une pour commencer !
         </div>
     {% else %}
-        <p class="text-muted">{{ citations|length }} citation(s) enregistrée(s)</p>
+        <p class="text-muted">{{ citations|length }} citations enregistrées</p>
 
         {% for citation in citations %}
             <div class="card mb-3">
@@ -25,6 +25,7 @@
                     </small>
                     <div class="mt-2">
                         <a class="btn btn-sm btn-outline-primary" href="{{ path('app_citation_show', {id: citation.id}) }}">Consulter</a>
+                        <a class="btn btn-sm btn-outline-secondary" href="{{ path('app_citation_edit', {id: citation.id}) }}">Modifier</a>
                     </div>
                 </div>
             </div>

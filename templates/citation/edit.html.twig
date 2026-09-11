@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la citation{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Modifier la citation</h1>
+    {{ include('citation/_form.html.twig', {button_label: 'Mettre à jour'}) }}
+    <a class="d-block mt-3" href="{{ path('app_citation_show', {id: citation.id}) }}">← Retour à la citation</a>
+{% endblock %}
