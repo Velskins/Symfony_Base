@@ -70,5 +70,16 @@ final class CitationController extends AbstractController
         ]);
     }
 
-    
+    #[Route('/citation/{id}/supprimer', name: 'app_citation_delete', methods: ['POST'], requirements: ['id' => '\d+'])]
+    public function delete(Request $request, Citation $citation, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$citation->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($citation);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La citation a été supprimée.');
+        }
+
+        return $this->redirectToRoute('app_citation_index');
+    }
 }
