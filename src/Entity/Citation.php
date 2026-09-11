@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CitationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CitationRepository::class)]
 class Citation
@@ -15,9 +16,13 @@ class Citation
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: 'Le texte de la citation est obligatoire.')]
+    #[Assert\Length(min: 5, minMessage: 'La citation doit faire au moins {{ limit }} caractères.')]
     private ?string $texte = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "L'auteur est obligatoire.")]
+    #[Assert\Length(max: 255, maxMessage: "L'auteur ne peut pas dépasser {{ limit }} caractères.")]
     private ?string $auteur = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -33,6 +38,7 @@ class Citation
     private ?string $langue = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\Range(min: 1, max: 5, notInRangeMessage: 'La note doit être comprise entre {{ min }} et {{ max }}.')]
     private ?int $note = null;
 
     #[ORM\Column]
