@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bibliothèque{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Bibliothèque de citations</h1>
+
+    {% if citations is empty %}
+        <div class="alert alert-info">
+            Aucune citation pour le moment. Ajoutez-en une pour commencer !
+        </div>
+    {% else %}
+        <p class="text-muted">{{ citations|length }} citation(s) enregistrée(s)</p>
+
+        {% for citation in citations %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <blockquote class="blockquote mb-2">
+                        <p>« {{ citation.texte }} »</p>
+                        <footer class="blockquote-footer">{{ citation.auteur }}</footer>
+                    </blockquote>
+                    <small class="text-muted">
+                        Ajoutée le {{ citation.dateAjout|date('d/m/Y') }}
+                        · {{ citation.categorie|capitalize }}
+                    </small>
+                    <div class="mt-2">
+                        {# les boutons Consulter / Modifier / Supprimer arriveront aux étapes suivantes #}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
