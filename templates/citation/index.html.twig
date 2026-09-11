@@ -12,6 +12,10 @@
     {% else %}
         <p class="text-muted">{{ citations|length }} citations enregistrées</p>
 
+        <div class="mb-3">
+            <a href="{{ path('app_citation_export_csv') }}" class="btn btn-outline-secondary btn-sm">Export CSV</a>
+        </div>
+
         {% for citation in citations %}
             <div class="card mb-3">
                 <div class="card-body">

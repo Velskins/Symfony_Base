@@ -10,6 +10,9 @@ use App\Entity\Citation;
 use App\Form\CitationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use League\Csv\Bom;
+use League\Csv\Writer;
 
 final class CitationController extends AbstractController
 {
@@ -81,5 +84,36 @@ final class CitationController extends AbstractController
         }
 
         return $this->redirectToRoute('app_citation_index');
+    }
+
+    #[Route('/citation/export.csv', name: 'app_citation_export_csv', methods: ['GET'])]
+    public function exportCsv(CitationRepository $citationRepository): Response
+    {
+        $citations = $citationRepository->findBy([], ['dateAjout' => 'DESC']);
+
+        $csv = Writer::createFromString();
+        $csv->setDelimiter(';');
+        $csv->setOutputBOM(Bom::Utf8);
+
+        $csv->insertOne(['id', 'texte', 'auteur', 'source', 'categorie', 'langue', 'note', 'favori', 'dateAjout']);
+
+        foreach ($citations as $citation) {
+            $csv->insertOne([
+                $citation->getId(),
+                $citation->getTexte(),
+                $citation->getAuteur(),
+                $citation->getSource(),
+                $citation->getCategorie(),
+                $citation->getLangue(),
+                $citation->getNote(),
+                $citation->isFavori() ? 'oui' : 'non',
+                $citation->getDateAjout()?->format('Y-m-d'),
+            ]);
+        }
+
+        return new Response($csv->toString(), Response::HTTP_OK, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => 'attachment; filename="citations.csv"',
+        ]);
     }
 }
