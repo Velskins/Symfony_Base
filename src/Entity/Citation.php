@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CitationRepository;
+use App\Validator\CitationPropre;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,6 +19,7 @@ class Citation
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: 'Le texte de la citation est obligatoire.')]
     #[Assert\Length(min: 5, minMessage: 'La citation doit faire au moins {{ limit }} caractères.')]
+    #[CitationPropre]
     private ?string $texte = null;
 
     #[ORM\Column(length: 255)]
