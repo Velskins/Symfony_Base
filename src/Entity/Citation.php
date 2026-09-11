@@ -36,7 +36,12 @@ class Citation
     private ?int $note = null;
 
     #[ORM\Column]
-    private ?bool $favori = null;
+    private ?bool $favori = false;
+
+    public function __construct()
+    {
+        $this->dateAjout = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
