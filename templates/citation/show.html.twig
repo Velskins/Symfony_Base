@@ -3,21 +3,64 @@
 {% block title %}Citation de {{ citation.auteur }}{% endblock %}
 
 {% block body %}
-    <blockquote class="blockquote fs-3 mb-4">
-        <p>« {{ citation.texte }} »</p>
-        <footer class="text-muted small">{{ citation.auteur }}</footer>
-    </blockquote>
+    <a class="d-inline-block mb-3 text-decoration-none" href="{{ path('app_citation_index') }}">← Retour à la liste</a>
 
-    <table class="table w-auto">
-        <tr><th>Source / origine</th><td>{{ citation.source ?: 'Non renseignée' }}</td></tr>
-        <tr><th>Catégorie</th><td>{{ citation.categorie|capitalize }}</td></tr>
-        <tr><th>Langue</th><td>{{ citation.langue|upper }}</td></tr>
-        <tr><th>Note</th><td>{{ citation.note ? citation.note ~ '/5' : '—' }}</td></tr>
-        <tr><th>Favori</th><td>{{ citation.favori ? 'Oui' : 'Non' }}</td></tr>
-        <tr><th>Date d'ajout</th><td>{{ citation.dateAjout|date('d/m/Y à H:i') }}</td></tr>
-    </table>
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4">
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        <span class="badge text-bg-secondary">{{ citation.categorie|capitalize }}</span>
+                        <span class="badge text-bg-light border">{{ citation.langue|upper }}</span>
+                        {% if citation.favori %}
+                            <span class="badge text-bg-warning">⭐ Favori</span>
+                        {% endif %}
+                    </div>
 
-    <a class="btn btn-secondary" href="{{ path('app_citation_index') }}">← Retour à la liste</a>
-    <a class="btn btn-sm btn-outline-secondary" href="{{ path('app_citation_edit', {id: citation.id}) }}">Modifier</a>
-    {{ include('citation/_delete_form.html.twig') }}
+                    <blockquote class="blockquote mb-0">
+                        <p class="citation-texte fs-4">« {{ citation.texte }} »</p>
+                        <footer class="blockquote-footer">{{ citation.auteur }}</footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-white fw-semibold">Informations</div>
+                <div class="card-body">
+                    <dl class="row mb-0 small">
+                        <dt class="col-5">Source</dt>
+                        <dd class="col-7">{{ citation.source ?: 'Non renseignée' }}</dd>
+
+                        <dt class="col-5">Catégorie</dt>
+                        <dd class="col-7">{{ citation.categorie|capitalize }}</dd>
+
+                        <dt class="col-5">Langue</dt>
+                        <dd class="col-7">{{ citation.langue|upper }}</dd>
+
+                        <dt class="col-5">Note</dt>
+                        <dd class="col-7">
+                            {% if citation.note %}
+                                <span class="note-etoiles">{% for i in 1..5 %}{{ i <= citation.note ? '★' : '☆' }}{% endfor %}</span>
+                                <span class="text-muted">{{ citation.note }}/5</span>
+                            {% else %}
+                                <span class="text-muted">Non notée</span>
+                            {% endif %}
+                        </dd>
+
+                        <dt class="col-5">Favori</dt>
+                        <dd class="col-7">{{ citation.favori ? 'Oui ⭐' : 'Non' }}</dd>
+
+                        <dt class="col-5">Ajoutée le</dt>
+                        <dd class="col-7 mb-0">{{ citation.dateAjout|date('d/m/Y à H:i') }}</dd>
+                    </dl>
+                </div>
+                <div class="card-footer bg-white d-flex flex-wrap gap-2">
+                    <a class="btn btn-sm btn-outline-secondary" href="{{ path('app_citation_edit', {id: citation.id}) }}">✏️ Modifier</a>
+                    {{ include('citation/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

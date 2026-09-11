@@ -1,8 +1,31 @@
 body {
-    background-color: skyblue;
+    background-color: #f4f6f9;
 }
 
 /* Retire le tiret cadratin que Bootstrap ajoute devant l'auteur d'une citation */
 .blockquote-footer::before {
     content: none;
+}
+
+/* Cartes de citation : léger relief au survol */
+.citation-card {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.citation-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+/* Le texte d'une citation reste lisible sur petit écran */
+.citation-texte {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+/* Étoiles de la note */
+.note-etoiles {
+    color: #f5b301;
+    letter-spacing: 0.1em;
 }

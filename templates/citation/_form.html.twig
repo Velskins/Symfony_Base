@@ -1,4 +1,21 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+    {{ form_row(form.texte) }}
+
+    <div class="row">
+        <div class="col-md-6">{{ form_row(form.auteur) }}</div>
+        <div class="col-md-6">{{ form_row(form.source) }}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">{{ form_row(form.categorie) }}</div>
+        <div class="col-md-4">{{ form_row(form.langue) }}</div>
+        <div class="col-md-4">{{ form_row(form.note) }}</div>
+    </div>
+
+    {{ form_row(form.favori) }}
+
+    <div class="d-flex flex-wrap gap-2 mt-3">
+        <button class="btn btn-success">{{ button_label|default('Enregistrer') }}</button>
+        <a class="btn btn-outline-secondary" href="{{ path('app_citation_index') }}">Annuler</a>
+    </div>
 {{ form_end(form) }}

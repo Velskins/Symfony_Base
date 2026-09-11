@@ -3,7 +3,16 @@
 {% block title %}Modifier la citation{% endblock %}
 
 {% block body %}
-    <h1 class="mb-4">Modifier la citation</h1>
-    {{ include('citation/_form.html.twig', {button_label: 'Mettre à jour'}) }}
-    <a class="d-block mt-3" href="{{ path('app_citation_show', {id: citation.id}) }}">← Retour à la citation</a>
+    <a class="d-inline-block mb-3 text-decoration-none" href="{{ path('app_citation_show', {id: citation.id}) }}">← Retour à la citation</a>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h1 class="h3 mb-4">✏️ Modifier la citation</h1>
+                    {{ include('citation/_form.html.twig', {button_label: 'Mettre à jour'}) }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
