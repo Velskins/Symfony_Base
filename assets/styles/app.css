@@ -1,3 +1,8 @@
 body {
     background-color: skyblue;
 }
+
+/* Retire le tiret cadratin que Bootstrap ajoute devant l'auteur d'une citation */
+.blockquote-footer::before {
+    content: none;
+}
