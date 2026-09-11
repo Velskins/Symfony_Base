@@ -24,7 +24,7 @@
                         · {{ citation.categorie|capitalize }}
                     </small>
                     <div class="mt-2">
-                        {# les boutons Consulter / Modifier / Supprimer arriveront aux étapes suivantes #}
+                        <a class="btn btn-sm btn-outline-primary" href="{{ path('app_citation_show', {id: citation.id}) }}">Consulter</a>
                     </div>
                 </div>
             </div>

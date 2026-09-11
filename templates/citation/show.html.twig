@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Citation de {{ citation.auteur }}{% endblock %}
+
+{% block body %}
+    <blockquote class="blockquote fs-3 mb-4">
+        <p>« {{ citation.texte }} »</p>
+        <footer class="blockquote-footer">{{ citation.auteur }}</footer>
+    </blockquote>
+
+    <table class="table w-auto">
+        <tr><th>Source / origine</th><td>{{ citation.source ?: 'Non renseignée' }}</td></tr>
+        <tr><th>Catégorie</th><td>{{ citation.categorie|capitalize }}</td></tr>
+        <tr><th>Langue</th><td>{{ citation.langue|upper }}</td></tr>
+        <tr><th>Note</th><td>{{ citation.note ? citation.note ~ '/5' : '—' }}</td></tr>
+        <tr><th>Favori</th><td>{{ citation.favori ? '⭐ Oui' : 'Non' }}</td></tr>
+        <tr><th>Date d'ajout</th><td>{{ citation.dateAjout|date('d/m/Y à H:i') }}</td></tr>
+    </table>
+
+    <a class="btn btn-secondary" href="{{ path('app_citation_index') }}">← Retour à la liste</a>
+    {# boutons Modifier / Supprimer aux étapes 7 et 8 #}
+{% endblock %}
